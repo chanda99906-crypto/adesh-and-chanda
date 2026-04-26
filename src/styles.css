@@ -133,17 +133,17 @@ a {
   animation: birdFlight 18s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
   filter: drop-shadow(0 8px 14px rgba(44, 24, 16, 0.14));
   opacity: 1;
-  transform: translate3d(-170px, 18px, 0) scale(0.78) rotate(-4deg);
+  transform: translate3d(30px, 18px, 0) scale(0.78) rotate(-4deg);
 }
 
 .flying-bird.is-second {
-  animation-delay: 2.8s;
+  animation-delay: 0.25s;
   animation-duration: 20s;
   animation-fill-mode: both;
 }
 
 .flying-bird.is-third {
-  animation-delay: 5.6s;
+  animation-delay: 0.5s;
   animation-duration: 22s;
   animation-fill-mode: both;
 }
@@ -576,7 +576,7 @@ a {
 @keyframes birdFlight {
   0% {
     opacity: 1;
-    transform: translate3d(-170px, 18px, 0) scale(0.78) rotate(-4deg);
+    transform: translate3d(30px, 18px, 0) scale(0.78) rotate(-4deg);
   }
 
   12% {

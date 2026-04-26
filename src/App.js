@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { CalendarDays, Heart, MapPin, MessageCircle, Sparkles } from "lucide-react";
+import { CalendarDays, Heart, MapPin, MessageCircle, Music, Sparkles, Volume2, VolumeX } from "lucide-react";
 
 const h = React.createElement;
 const weddingDate = new Date("2026-06-27T19:00:00+05:30");
@@ -7,6 +7,7 @@ const heroImage = new URL("./assets/opening.jpg", import.meta.url).href;
 const haldiImage = new URL("./assets/haldi.jpg", import.meta.url).href;
 const mehendiImage = new URL("./assets/mehandi.jpg", import.meta.url).href;
 const weddingImage = new URL("./assets/wedding.jpg", import.meta.url).href;
+const musicTrack = new URL("./assets/music.mp3", import.meta.url).href;
 
 const eventImages = [
   {
@@ -173,6 +174,69 @@ function Hero() {
       )
     ),
     h("div", { className: "scroll-cue absolute bottom-3 left-1/2 z-10 h-10 w-px bg-gradient-to-b from-maroon/75 to-transparent" })
+  );
+}
+
+function MusicPlayer() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = React.useRef(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return undefined;
+
+    audio.volume = 0.45;
+    const tryPlay = () => {
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
+    };
+
+    tryPlay();
+    window.addEventListener("pointerdown", tryPlay, { once: true });
+    window.addEventListener("keydown", tryPlay, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", tryPlay);
+      window.removeEventListener("keydown", tryPlay);
+    };
+  }, []);
+
+  const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio.play().then(() => setIsPlaying(true));
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  return h(
+    React.Fragment,
+    null,
+    h("audio", {
+      ref: audioRef,
+      src: musicTrack,
+      autoPlay: true,
+      loop: true,
+      playsInline: true,
+      preload: "auto",
+    }),
+    h(
+      "button",
+      {
+        type: "button",
+        onClick: toggleMusic,
+        className:
+          "fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-gold/60 bg-ivory/90 text-maroon shadow-luxury backdrop-blur-sm transition duration-300 hover:bg-gold hover:text-espresso",
+        "aria-label": isPlaying ? "Pause music" : "Play music",
+      },
+      isPlaying ? Icon(Volume2, "", 20) : Icon(VolumeX, "", 20)
+    )
   );
 }
 
@@ -435,5 +499,5 @@ export default function App() {
     };
   }, []);
 
-  return h(React.Fragment, null, h(Hero), h("main", null, h(InvitationDetails), h(Countdown), h(EventImageSections), h(Events), h(RSVP)), h(Footer));
+  return h(React.Fragment, null, h(MusicPlayer), h(Hero), h("main", null, h(InvitationDetails), h(Countdown), h(EventImageSections), h(Events), h(RSVP)), h(Footer));
 }
