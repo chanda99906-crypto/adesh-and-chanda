@@ -429,7 +429,7 @@ function RSVP() {
       h(
         "a",
         {
-          href: `https://wa.me/?text=${message}`,
+          href: `https://wa.me/918076156686?text=${message}`,
           target: "_blank",
           rel: "noreferrer",
           className: "mt-9 inline-flex items-center justify-center gap-3 rounded-full bg-maroon px-8 py-4 font-label text-sm font-medium uppercase tracking-[0.18em] text-ivory shadow-luxury transition duration-300 hover:-translate-y-0.5 hover:bg-espresso",
