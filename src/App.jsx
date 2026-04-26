@@ -1,0 +1,438 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { CalendarDays, Heart, MapPin, MessageCircle, Sparkles } from "lucide-react";
+
+const h = React.createElement;
+const weddingDate = new Date("2026-06-27T19:00:00+05:30");
+const heroImage = new URL("./assets/opening.jpg", import.meta.url).href;
+const haldiImage = new URL("./assets/haldi.jpg", import.meta.url).href;
+const mehendiImage = new URL("./assets/mehandi.jpg", import.meta.url).href;
+const weddingImage = new URL("./assets/wedding.jpg", import.meta.url).href;
+const eventImages = [
+  {
+    title: "Haldi",
+    date: "25 June",
+    time: "A morning of turmeric, laughter, and golden blessings.",
+    image: haldiImage,
+    offset: "pt-32",
+  },
+  {
+    title: "Mehendi",
+    date: "26 June",
+    time: "An evening of music, intricate henna, and stories held in every palm.",
+    image: mehendiImage,
+    offset: "pt-56",
+  },
+  {
+    title: "Wedding",
+    date: "27 June",
+    time: "The sacred vows, the gathered families, and the beginning of forever.",
+    image: weddingImage,
+    offset: "pt-32",
+  },
+];
+
+const eventDetails = [
+  {
+    title: "Haldi Ceremony",
+    date: "Thursday, 25 June · 4:00 PM",
+    address: ["B-3303 Spring View Floors, Sare Homes,", "Creasant Parc, Lal Kaun, Ghaziabad 201002"],
+    accent: "gold",
+    directions: "https://www.google.com/maps/search/?api=1&query=28.638583,77.480361",
+  },
+  {
+    title: "Mehandi Evening",
+    date: "Friday, 26 June · 6:00 PM",
+    address: ["B-3303 Spring View Floors, Sare Homes,", "Creasant Parc, Lal Kaun, Ghaziabad 201002"],
+    accent: "gold",
+    directions: "https://www.google.com/maps/search/?api=1&query=28.638583,77.480361",
+  },
+  {
+    title: "The Wedding Ceremony",
+    date: "Saturday, 27 June · 8:30 PM",
+    address: ["UK AURA by VR2H", "Main Gate, Wave City Marg, Sadiqpur, Kajipura", "Ghaziabad, Uttar Pradesh 201015"],
+    accent: "maroon",
+    directions: "https://www.google.com/maps/search/?api=1&query=UK%20AURA%20by%20VR2H%20Ghaziabad",
+  },
+];
+
+function useCountdown(targetDate) {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return useMemo(() => {
+    const diff = Math.max(targetDate.getTime() - now.getTime(), 0);
+    const seconds = Math.floor(diff / 1000);
+
+    return {
+      days: Math.floor(seconds / 86400),
+      hours: Math.floor((seconds % 86400) / 3600),
+      minutes: Math.floor((seconds % 3600) / 60),
+      seconds: seconds % 60,
+    };
+  }, [now, targetDate]);
+}
+
+function Icon(IconComponent, className = "", size = 19) {
+  return h(IconComponent, { className, size, strokeWidth: 1.7 });
+}
+
+function WhatsAppIcon() {
+  return h(
+    "svg",
+    { viewBox: "0 0 32 32", className: "h-5 w-5", fill: "currentColor", "aria-hidden": "true" },
+    h("path", {
+      d: "M16.02 3.2A12.62 12.62 0 0 0 5.1 22.14L3.4 28.8l6.82-1.6A12.61 12.61 0 1 0 16.02 3.2Zm0 22.9c-2.02 0-3.9-.58-5.5-1.6l-.39-.24-4.04.95 1-3.93-.25-.4a10.31 10.31 0 1 1 9.18 5.22Zm5.86-7.72c-.32-.16-1.9-.94-2.2-1.04-.3-.11-.52-.16-.73.16-.22.32-.84 1.04-1.03 1.26-.19.22-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.58-.95-.85-1.6-1.9-1.78-2.22-.18-.32-.02-.49.14-.65.14-.14.32-.38.49-.57.16-.19.22-.32.32-.54.11-.22.05-.41-.03-.57-.08-.16-.73-1.76-1-2.4-.26-.63-.53-.54-.73-.55h-.62c-.22 0-.57.08-.86.41-.3.32-1.14 1.11-1.14 2.71 0 1.6 1.17 3.15 1.33 3.37.16.22 2.3 3.52 5.57 4.93.78.34 1.38.54 1.86.69.78.25 1.49.21 2.05.13.63-.09 1.9-.78 2.17-1.53.27-.76.27-1.41.19-1.54-.08-.14-.3-.22-.62-.38Z",
+    })
+  );
+}
+
+function Eyebrow({ children }) {
+  return h(
+    "p",
+    { className: "font-label text-[0.68rem] font-medium uppercase tracking-[0.32em] text-gold" },
+    children
+  );
+}
+
+function Section({ id, children, className = "" }) {
+  return h(
+    "section",
+    { id, className: `relative px-5 py-16 ${className}` },
+    h("div", { className: "mx-auto w-full" }, children)
+  );
+}
+
+function FlyingBird({ className = "" }) {
+  return h(
+    "div",
+    { className: `flying-bird pointer-events-none absolute z-10 h-10 w-16 text-[#2F6B45] ${className}` },
+    h(
+      "svg",
+      { viewBox: "0 0 96 48", fill: "none", xmlns: "http://www.w3.org/2000/svg", "aria-hidden": "true" },
+      h("path", {
+        className: "bird-left-wing",
+        d: "M47 27C33 12 19 12 5 26C23 22 35 26 47 34Z",
+        fill: "currentColor",
+        opacity: "0.84",
+      }),
+      h("path", {
+        className: "bird-right-wing",
+        d: "M49 27C63 12 77 12 91 26C73 22 61 26 49 34Z",
+        fill: "currentColor",
+        opacity: "0.88",
+      }),
+      h("ellipse", {
+        className: "bird-body",
+        cx: "48",
+        cy: "29",
+        rx: "8.5",
+        ry: "4.5",
+        fill: "#C9A84C",
+        opacity: "0.94",
+      })
+    )
+  );
+}
+
+function Hero() {
+  return h(
+    "header",
+    { className: "relative min-h-[100svh] overflow-hidden bg-ivory text-espresso" },
+    h("img", {
+      src: heroImage,
+      alt: "Opening wedding monogram artwork for Adesh and Chanda",
+      className: "opening-image absolute inset-0 h-full w-full object-cover object-center",
+    }),
+    h("div", { className: "absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-ivory via-ivory/55 to-transparent" }),
+    h(FlyingBird, { className: "-left-28 top-[16%]" }),
+    h(FlyingBird, { className: "is-second -left-28 top-[23%] scale-75 opacity-80" }),
+    h(FlyingBird, { className: "is-third -left-28 top-[11%] scale-90 opacity-85" }),
+    h(
+      "div",
+      { className: "absolute inset-x-0 top-0 z-10 px-5 py-6 sm:px-8" },
+      h(
+        "nav",
+        { className: "mx-auto flex items-center justify-between font-label text-[0.65rem] font-medium uppercase tracking-[0.22em] text-espresso" },
+        h("a", { href: "#invitation", className: "transition-colors hover:text-gold" }, "Story"),
+      h("span", { className: "font-display text-lg font-light italic normal-case tracking-normal text-maroon" }, "A & C"),
+        h("a", { href: "#rsvp", className: "transition-colors hover:text-gold" }, "RSVP")
+      )
+    ),
+    h(
+      "div",
+      { className: "absolute inset-x-0 bottom-12 z-10 px-6 text-center" },
+      h(
+        "p",
+        { className: "opening-signature inline-block px-2 py-2 font-signature text-4xl leading-[1.35] tracking-wide" },
+        "Adesh & Chanda"
+      )
+    ),
+    h("div", { className: "scroll-cue absolute bottom-3 left-1/2 z-10 h-10 w-px bg-gradient-to-b from-maroon/75 to-transparent" })
+  );
+}
+
+function InvitationDetails() {
+  return h(
+    Section,
+    { id: "invitation", className: "bg-ivory py-6 text-espresso" },
+    h(
+      "div",
+      { className: "invitation-sequence px-4 py-8 text-center" },
+      h("p", { className: "font-label text-[0.68rem] font-medium uppercase tracking-[0.32em] text-blush" }, "Request the honour of your presence at the wedding of"),
+      h(
+        "div",
+        { className: "mt-9 space-y-7" },
+        h(
+          "div",
+          null,
+          h("p", { className: "font-signature text-5xl leading-[1.15] text-maroon drop-shadow-sm" }, "Adesh"),
+          h("p", { className: "mt-2 font-body text-sm leading-7 text-text-mid" }, "Beloved son of", h("br"), "Shri Kishor Chaurasia & Smt. Maya Chaurasia")
+        ),
+        h(
+          "div",
+          { className: "flex items-center justify-center gap-4" },
+          h("span", { className: "h-px w-12 bg-gold/45" }),
+          h("span", { className: "font-signature text-3xl text-gold-lt" }, "weds"),
+          h("span", { className: "h-px w-12 bg-gold/45" })
+        ),
+        h(
+          "div",
+          null,
+          h("p", { className: "font-signature text-5xl leading-[1.15] text-maroon drop-shadow-sm" }, "Chanda"),
+          h("p", { className: "mt-2 font-body text-sm leading-7 text-text-mid" }, "Beloved daughter of", h("br"), "Shri Vijay Kumar Chaurasia & Smt. Sushila Chaurasia")
+        )
+      ),
+      h(
+        "p",
+        { className: "mx-auto mt-6 max-w-[18rem] font-body text-base italic leading-8 text-text-mid" },
+        "We joyfully invite you to witness and bless",
+        h("br"),
+        "the beginning of our forever together.",
+        h("br"),
+        h("span", { className: "font-label text-[0.68rem] uppercase tracking-[0.2em] text-gold-lt" }, "— With love & blessings")
+      )
+    )
+  );
+}
+
+function Countdown() {
+  const countdown = useCountdown(weddingDate);
+  const numbers = [
+    String(countdown.days).padStart(2, "0"),
+    String(countdown.hours).padStart(2, "0"),
+    String(countdown.minutes).padStart(2, "0"),
+    String(countdown.seconds).padStart(2, "0"),
+  ];
+
+  return h(
+    Section,
+    { id: "countdown", className: "bg-[#f7f1e8] text-espresso" },
+    h(
+      "div",
+      { className: "reveal text-cascade py-8 text-center" },
+      h("p", { className: "countdown-heading font-label text-[0.66rem] uppercase tracking-[0.42em] text-maroon/70" }, "Counting down to the wedding"),
+      h(
+        "div",
+        { className: "mt-8 flex items-baseline justify-center gap-1 font-display text-[3.2rem] font-normal leading-none text-maroon" },
+        numbers.map((value, index) =>
+          h(
+            React.Fragment,
+            { key: index },
+            h("span", { className: "min-w-[3.9rem] tabular-nums" }, value),
+            index < numbers.length - 1 ? h("span", { className: "text-3xl text-gold" }, ":") : null
+          )
+        )
+      ),
+      h(
+        "div",
+        { className: "mx-auto mt-5 grid max-w-[19rem] grid-cols-4 text-center font-label text-[0.65rem] uppercase tracking-[0.28em] text-gold" },
+        h("span", null, "Days"),
+        h("span", null, "Hours"),
+        h("span", null, "Mins"),
+        h("span", null, "Secs")
+      ),
+      h("p", { className: "mt-12 font-label text-[0.68rem] uppercase tracking-[0.26em] text-text-mid" }, "Saturday · 8:30 PM IST")
+    )
+  );
+}
+
+function Events() {
+  return h(
+    Section,
+    { id: "events", className: "bg-maroon text-ivory" },
+    h(
+      "div",
+      { className: "reveal text-cascade mx-auto max-w-2xl text-center" },
+      h("p", { className: "font-label text-[0.68rem] font-medium uppercase tracking-[0.42em] text-gold" }, "Three days of celebration"),
+      h("h2", { className: "mt-5 font-display text-4xl font-light leading-tight text-ivory" }, "Events & Venues"),
+      h(
+        "p",
+        { className: "mx-auto mt-8 max-w-[20rem] font-body text-lg leading-8 text-ivory" },
+        "Join us where every ritual is held with grace, every blessing gathers close, and the evening turns into a memory dressed in gold."
+      )
+    ),
+    h(
+      "div",
+      { className: "reveal-stagger mt-12 grid gap-5" },
+      eventDetails.map((event) =>
+        h(
+          "article",
+          {
+            key: event.title,
+            className: `rounded-none border-l-2 ${event.accent === "maroon" ? "border-gold" : "border-gold"} bg-[#FAF6EF] px-6 py-7 text-left shadow-luxury`,
+          },
+          h(
+            "div",
+            { className: "flex flex-col gap-2" },
+            h("h3", { className: "font-label text-sm font-medium uppercase tracking-[0.24em] text-blush" }, event.title),
+            h("p", { className: "font-body text-base text-gold-lt" }, event.date)
+          ),
+          h(
+            "div",
+            { className: "mt-5 space-y-2 font-body text-lg leading-7 text-text-mid" },
+            event.address.map((line) => h("p", { key: line }, line))
+          ),
+          h(
+            "a",
+            {
+              href: event.directions,
+              target: "_blank",
+              rel: "noreferrer",
+              className: "mt-7 inline-flex items-center gap-2 border-b border-gold pb-1 font-label text-[0.68rem] uppercase tracking-[0.24em] text-blush",
+            },
+            Icon(MapPin, "", 14),
+            "Get Directions"
+          )
+        )
+      )
+    )
+  );
+}
+
+function EventImageSections() {
+  return h(
+    Section,
+    { id: "celebrations", className: "bg-ivory text-espresso" },
+    h(
+      "div",
+      { className: "grid gap-5" },
+      eventImages.map((event) =>
+        h(
+          "article",
+          {
+            key: event.title,
+            className:
+              "relative min-h-[100svh] overflow-hidden rounded-lg border border-gold/25 bg-ivory shadow-luxury",
+          },
+          h("img", {
+            src: event.image,
+            alt: `${event.title} celebration artwork`,
+            className:
+              "absolute inset-0 h-full w-full object-cover object-center",
+          }),
+          h("div", { className: "absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-ivory/95 via-ivory/72 to-transparent" }),
+          h(
+            "div",
+            { className: `relative z-10 px-7 text-center ${event.offset}` },
+            h(Eyebrow, null, event.date),
+            h("h3", { className: "mt-2 font-display text-5xl font-light leading-none text-maroon" }, event.title),
+            h("div", { className: "mx-auto mt-3 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" }),
+            h("p", { className: "mx-auto mt-0 max-w-[15rem] font-body text-lg italic leading-6 text-text-mid" }, event.time)
+          )
+        )
+      )
+    )
+  );
+}
+
+function RSVP() {
+  const message = encodeURIComponent("Namaste, I would love to RSVP for Adesh & Chanda's wedding celebrations.");
+
+  return h(
+    Section,
+    { id: "rsvp", className: "bg-ivory text-espresso" },
+    h(
+      "div",
+      { className: "reveal text-cascade mx-auto max-w-3xl text-center" },
+      Icon(Heart, "mx-auto text-gold", 34),
+      h("h2", { className: "mt-6 font-display text-4xl font-light leading-tight text-maroon" }, "Your presence is the blessing we hope for."),
+      h("p", { className: "mx-auto mt-6 max-w-2xl font-body text-lg leading-9 text-espresso/72" }, "Kindly let the family know you will be joining the celebrations, so every detail may be prepared with love."),
+      h(
+        "a",
+        {
+          href: `https://wa.me/?text=${message}`,
+          target: "_blank",
+          rel: "noreferrer",
+          className: "mt-9 inline-flex items-center justify-center gap-3 rounded-full bg-maroon px-8 py-4 font-label text-sm font-medium uppercase tracking-[0.18em] text-ivory shadow-luxury transition duration-300 hover:-translate-y-0.5 hover:bg-espresso",
+        },
+        h(WhatsAppIcon),
+        "RSVP on WhatsApp"
+      )
+    )
+  );
+}
+
+function Footer() {
+  return h(
+    "footer",
+    { className: "text-cascade bg-ivory px-5 py-12 text-center sm:px-8" },
+    h("p", { className: "font-signature text-4xl leading-[1.2] text-gold-lt" }, "Adesh & Chanda"),
+    h("p", { className: "mx-auto mt-4 max-w-2xl font-body text-lg font-normal leading-8 text-text-mid" }, "With the blessings of our families, we invite you to celebrate a day of sacred vows, cherished traditions, and a love made brighter by your presence.")
+  );
+}
+
+export default function App() {
+  useEffect(() => {
+    const targets = document.querySelectorAll(".reveal, .reveal-stagger, .text-cascade, .invitation-sequence");
+    const scrollToHash = () => {
+      if (!window.location.hash) return;
+      const target = document.querySelector(window.location.hash);
+      if (target) target.scrollIntoView({ block: "start" });
+    };
+
+    const markVisibleTargets = () => {
+      targets.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight * 0.92 && rect.bottom > window.innerHeight * 0.08;
+        if (isInView) item.classList.add("is-visible");
+      });
+    };
+    const handleHashChange = () => {
+      scrollToHash();
+      markVisibleTargets();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    targets.forEach((item) => observer.observe(item));
+    window.requestAnimationFrame(() => {
+      scrollToHash();
+      markVisibleTargets();
+    });
+    window.setTimeout(() => {
+      scrollToHash();
+      markVisibleTargets();
+    }, 250);
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("scroll", markVisibleTargets, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("scroll", markVisibleTargets);
+    };
+  }, []);
+
+  return h(React.Fragment, null, h(Hero), h("main", null, h(InvitationDetails), h(Countdown), h(EventImageSections), h(Events), h(RSVP)), h(Footer));
+}
