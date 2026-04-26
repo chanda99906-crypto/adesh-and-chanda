@@ -8,6 +8,37 @@ const haldiImage = new URL("./assets/haldi.jpg", import.meta.url).href;
 const mehendiImage = new URL("./assets/mehandi.jpg", import.meta.url).href;
 const weddingImage = new URL("./assets/wedding.jpg", import.meta.url).href;
 const musicTrack = new URL("./assets/music.mp3", import.meta.url).href;
+const couplePhoto = new URL("./assets/adesh-chanda-couple.jpeg", import.meta.url).href;
+const handPhoto = new URL("./assets/couple-hand.jpeg", import.meta.url).href;
+const ringsOnePhoto = new URL("./assets/couple-rings-1.jpeg", import.meta.url).href;
+const ringsTwoPhoto = new URL("./assets/couple-rings-2.jpeg", import.meta.url).href;
+
+const memoryPhotos = [
+  {
+    title: "Adesh & Chanda",
+    caption: "The quiet joy before forever begins.",
+    image: couplePhoto,
+    position: "object-center",
+  },
+  {
+    title: "Held Close",
+    caption: "A promise felt in the smallest gestures.",
+    image: handPhoto,
+    position: "object-center",
+  },
+  {
+    title: "The Rings",
+    caption: "Two circles, one sacred beginning.",
+    image: ringsOnePhoto,
+    position: "object-center",
+  },
+  {
+    title: "Almost Forever",
+    caption: "A moment suspended between now and always.",
+    image: ringsTwoPhoto,
+    position: "object-center",
+  },
+];
 
 const eventImages = [
   {
@@ -325,6 +356,71 @@ function Countdown() {
   );
 }
 
+function CoupleGallery() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activePhoto = memoryPhotos[activeIndex];
+
+  return h(
+    Section,
+    { id: "memories", className: "bg-ivory text-espresso" },
+    h(
+      "div",
+      { className: "reveal text-cascade text-center" },
+      h("p", { className: "font-label text-[0.68rem] font-medium uppercase tracking-[0.42em] text-blush" }, "A little glimpse of us"),
+      h("h2", { className: "mt-5 font-display text-4xl font-light leading-tight text-maroon" }, "Moments Before Forever"),
+      h(
+        "p",
+        { className: "mx-auto mt-7 max-w-[20rem] font-body text-lg italic leading-8 text-text-mid" },
+        "Some memories are not loud. They live softly in held hands, shared smiles, and the quiet certainty of choosing each other."
+      )
+    ),
+    h(
+      "div",
+      { className: "reveal mt-10 overflow-hidden rounded-lg border border-gold/25 bg-white shadow-luxury" },
+      h(
+        "div",
+        { className: "relative aspect-[4/4.35] overflow-hidden bg-ivory" },
+        h("img", {
+          key: activePhoto.image,
+          src: activePhoto.image,
+          alt: activePhoto.title,
+          className: `gallery-feature h-full w-full object-cover ${activePhoto.position}`,
+        }),
+        h("div", { className: "absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-espresso/75 via-espresso/24 to-transparent" }),
+        h(
+          "div",
+          { className: "absolute bottom-5 left-5 right-5 text-left text-ivory" },
+          h("p", { className: "font-display text-3xl font-light leading-none" }, activePhoto.title),
+          h("p", { className: "mt-2 font-body text-base italic leading-6 text-ivory" }, activePhoto.caption)
+        )
+      ),
+      h(
+        "div",
+        { className: "grid grid-cols-4 gap-2 p-3" },
+        memoryPhotos.map((photo, index) =>
+          h(
+            "button",
+            {
+              key: photo.title,
+              type: "button",
+              onClick: () => setActiveIndex(index),
+              className: `overflow-hidden rounded-md border transition duration-300 ${
+                activeIndex === index ? "border-gold p-1" : "border-transparent opacity-70"
+              }`,
+              "aria-label": `Show ${photo.title}`,
+            },
+            h("img", {
+              src: photo.image,
+              alt: "",
+              className: `h-16 w-full rounded object-cover ${photo.position}`,
+            })
+          )
+        )
+      )
+    )
+  );
+}
+
 function EventImageSections() {
   return h(
     Section,
@@ -499,5 +595,5 @@ export default function App() {
     };
   }, []);
 
-  return h(React.Fragment, null, h(MusicPlayer), h(Hero), h("main", null, h(InvitationDetails), h(Countdown), h(EventImageSections), h(Events), h(RSVP)), h(Footer));
+  return h(React.Fragment, null, h(MusicPlayer), h(Hero), h("main", null, h(InvitationDetails), h(Countdown), h(CoupleGallery), h(EventImageSections), h(Events), h(RSVP)), h(Footer));
 }
