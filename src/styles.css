@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Great+Vibes&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap");
 
 :root {
   --ivory: #faf6ef;
@@ -53,7 +53,7 @@ a {
 }
 
 .font-signature {
-  font-family: "Great Vibes", "Cormorant Garamond", Georgia, serif !important;
+  font-family: "Alex Brush", "Cormorant Garamond", Georgia, serif !important;
 }
 
 .text-gold-lt {
@@ -62,6 +62,13 @@ a {
 
 .text-gold {
   color: var(--gold) !important;
+}
+
+.gold-gradient-text {
+  color: transparent !important;
+  background: linear-gradient(115deg, #6f4305 0%, #a86f08 27%, #d69615 52%, #9a6507 76%, #573503 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .text-ivory {
@@ -279,16 +286,6 @@ a {
 
 .invitation-sequence.is-visible > *:nth-child(7) {
   animation-delay: 3580ms;
-}
-
-.text-cascade.is-visible .font-display,
-.reveal.is-visible .text-cascade .font-display {
-  animation: textFloatGlow 4.8s ease-in-out infinite;
-}
-
-.text-cascade.is-visible > *,
-.reveal.is-visible .text-cascade > * {
-  animation: cascadeVisibleFloat 5.2s ease-in-out infinite;
 }
 
 .text-cascade.is-visible > *:nth-child(2),

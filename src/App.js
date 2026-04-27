@@ -158,7 +158,7 @@ function WhatsAppIcon() {
 function Eyebrow({ children }) {
   return h(
     "p",
-    { className: "font-label text-[0.68rem] font-medium uppercase tracking-[0.32em] text-gold" },
+    { className: "font-label text-[0.68rem] font-medium uppercase tracking-[0.32em] text-blush" },
     children
   );
 }
@@ -200,7 +200,7 @@ function Hero() {
       { className: "absolute inset-x-0 bottom-12 z-10 px-6 text-center" },
       h(
         "p",
-        { className: "opening-signature inline-block px-2 py-2 font-signature text-4xl leading-[1.35] tracking-wide" },
+        { className: "opening-signature gold-gradient-text inline-block px-2 py-2 font-signature text-4xl leading-[1.35] tracking-wide" },
         "Adesh & Chanda"
       )
     ),
@@ -285,7 +285,7 @@ function InvitationDetails() {
         h(
           "div",
           null,
-          h("p", { className: "font-signature text-5xl leading-[1.15] text-maroon drop-shadow-sm" }, "Adesh"),
+          h("p", { className: "gold-gradient-text font-signature text-5xl leading-[1.15] drop-shadow-sm" }, "Adesh"),
           h("p", { className: "mt-2 font-body text-sm leading-7 text-text-mid" }, "Beloved son of", h("br"), "Shri Kishor Chaurasia & Smt. Maya Chaurasia")
         ),
         h(
@@ -298,8 +298,9 @@ function InvitationDetails() {
         h(
           "div",
           null,
-          h("p", { className: "font-signature text-5xl leading-[1.15] text-maroon drop-shadow-sm" }, "Chanda"),
-          h("p", { className: "mt-2 font-body text-sm leading-7 text-text-mid" }, "Beloved daughter of", h("br"), "Shri Vijay Kumar Chaurasia & Smt. Sushila Chaurasia")
+          h("p", { className: "gold-gradient-text font-signature text-5xl leading-[1.15] drop-shadow-sm" }, "Chanda"),
+          h("p", { className: "mt-2 font-body text-sm leading-7 text-text-mid" }, "Beloved daughter of", h("br"), "Shri Vijay Kumar Chaurasia & Smt. Sushila Chaurasia"),
+          h("span", { className: "mx-auto mt-7 block h-px w-24 bg-[#c9a84c]/55" })
         )
       ),
       h(
@@ -330,7 +331,7 @@ function Countdown() {
     h(
       "div",
       { className: "reveal text-cascade py-8 text-center" },
-      h("p", { className: "countdown-heading font-label text-[0.66rem] uppercase tracking-[0.42em] text-maroon/70" }, "Counting down to the wedding"),
+      h("p", { className: "countdown-heading font-label text-[0.66rem] uppercase tracking-[0.42em] text-blush" }, "Counting down to the wedding"),
       h(
         "div",
         { className: "mt-8 flex items-baseline justify-center gap-1 font-display text-[3.2rem] font-normal leading-none text-maroon" },
@@ -376,7 +377,7 @@ function CoupleGallery() {
     ),
     h(
       "div",
-      { className: "reveal mt-10 overflow-hidden rounded-lg border border-gold/25 bg-white shadow-luxury" },
+      { className: "reveal mt-10 overflow-hidden rounded-[8px] border border-gold/25 bg-white shadow-luxury" },
       h(
         "div",
         { className: "relative aspect-[4/4.35] overflow-hidden bg-ivory" },
@@ -404,7 +405,7 @@ function CoupleGallery() {
               key: photo.title,
               type: "button",
               onClick: () => setActiveIndex(index),
-              className: `overflow-hidden rounded-md border transition duration-300 ${
+              className: `overflow-hidden rounded-[8px] border transition duration-300 ${
                 activeIndex === index ? "border-gold p-1" : "border-transparent opacity-70"
               }`,
               "aria-label": `Show ${photo.title}`,
@@ -412,7 +413,7 @@ function CoupleGallery() {
             h("img", {
               src: photo.image,
               alt: "",
-              className: `h-16 w-full rounded object-cover ${photo.position}`,
+              className: `h-16 w-full rounded-[8px] object-cover ${photo.position}`,
             })
           )
         )
@@ -434,7 +435,7 @@ function EventImageSections() {
           {
             key: event.title,
             className:
-              "relative min-h-[100svh] overflow-hidden rounded-lg border border-gold/25 bg-ivory shadow-luxury",
+              "relative min-h-[100svh] overflow-hidden rounded-[8px] border border-gold/25 bg-ivory shadow-luxury",
           },
           h("img", {
             src: event.image,
@@ -480,7 +481,7 @@ function Events() {
           "article",
           {
             key: event.title,
-            className: `rounded-none border-l-2 ${event.accent === "maroon" ? "border-gold" : "border-gold"} bg-[#FAF6EF] px-6 py-7 text-left shadow-luxury`,
+            className: `rounded-[8px] border-l-2 ${event.accent === "maroon" ? "border-gold" : "border-gold"} bg-[#FAF6EF] px-6 py-7 text-left shadow-luxury`,
           },
           h(
             "div",
@@ -518,17 +519,17 @@ function RSVP() {
     { id: "rsvp", className: "bg-ivory text-espresso" },
     h(
       "div",
-      { className: "reveal text-cascade mx-auto max-w-3xl text-center" },
+      { className: "reveal text-cascade mx-auto max-w-3xl rounded-[8px] border border-gold/35 px-5 py-10 text-center shadow-[0_18px_55px_rgba(44,24,16,0.06)]" },
       Icon(Heart, "mx-auto text-gold", 34),
       h("h2", { className: "mt-6 font-display text-4xl font-light leading-tight text-maroon" }, "Your presence is the blessing we hope for."),
-      h("p", { className: "mx-auto mt-6 max-w-2xl font-body text-lg leading-9 text-espresso/72" }, "Kindly let the family know you will be joining the celebrations, so every detail may be prepared with love."),
+      h("p", { className: "mx-auto mt-6 max-w-2xl font-body text-lg leading-9 text-text-mid" }, "Kindly let the family know you will be joining the celebrations, so every detail may be prepared with love."),
       h(
         "a",
         {
           href: `https://wa.me/918076156686?text=${message}`,
           target: "_blank",
           rel: "noreferrer",
-          className: "mt-9 inline-flex items-center justify-center gap-3 rounded-full bg-maroon px-8 py-4 font-label text-sm font-medium uppercase tracking-[0.18em] text-ivory shadow-luxury transition duration-300 hover:-translate-y-0.5 hover:bg-espresso",
+          className: "mt-9 inline-flex items-center justify-center gap-3 rounded-[8px] bg-maroon px-8 py-4 font-label text-sm font-medium uppercase tracking-[0.18em] text-ivory shadow-luxury transition duration-300 hover:-translate-y-0.5 hover:bg-espresso",
         },
         h(WhatsAppIcon),
         "RSVP on WhatsApp"
@@ -541,7 +542,14 @@ function Footer() {
   return h(
     "footer",
     { className: "text-cascade bg-ivory px-5 py-12 text-center sm:px-8" },
-    h("p", { className: "font-signature text-4xl leading-[1.2] text-gold-lt" }, "Adesh & Chanda"),
+    h("p", { className: "gold-gradient-text font-signature text-4xl leading-[1.2]" }, "Adesh & Chanda"),
+    h(
+      "div",
+      { className: "mx-auto mt-4 flex w-44 items-center justify-center gap-3 text-gold" },
+      h("span", { className: "h-px flex-1 bg-[#c9a84c]/65" }),
+      h("span", { className: "font-label text-[0.68rem] leading-none text-[#c9a84c]/80" }, "★"),
+      h("span", { className: "h-px flex-1 bg-[#c9a84c]/65" })
+    ),
     h("p", { className: "mx-auto mt-4 max-w-2xl font-body text-lg font-normal leading-8 text-text-mid" }, "With the blessings of our families, we invite you to celebrate a day of sacred vows, cherished traditions, and a love made brighter by your presence.")
   );
 }
